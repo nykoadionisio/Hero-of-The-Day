@@ -38,25 +38,32 @@ def main() -> list:
     for p in paragraphs:
         text = text + p.text.strip()
 
+    # just to initialize img_address
     img_address = (person_soup.find_all('img')[4]).get('alt')
-    images = (person_soup.find_all('img'))[:5]
+    images = (person_soup.find_all('img'))[:8]
+
+    count = 0
     for i in images:
+        # find first img of person
         if random_name in i.get('alt'):
-            img_address = i.get('alt')
+            img_address = (i.get('src'))
             break
+        count += 1
 
     img_address = img_address.replace(" ", "_")
 
     # print(img_address)
-    # print('https://en.wikipedia.org/wiki/File:' + img_address)
+    # print('https:' + img_address)
 
     driver.close()
 
-    person_arr = [text, 'https://en.wikipedia.org/wiki/File:' + img_address,
+    # person_arr = [text, 'https://en.wikipedia.org/wiki/File:' + img_address,
+    #               'https://en.wikipedia.org' + people[random_name]]
+    person_arr = [text, 'https:' + img_address,
                   'https://en.wikipedia.org' + people[random_name]]
 
-    # print(person_arr)
     # person_arr: [text, img address, link to wiki page]
+    # print(person_arr)
     return person_arr
 
 
