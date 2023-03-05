@@ -9,7 +9,7 @@ def summarize(prompt: str) -> str:
     result = co.summarize(
         text=prompt,
         length='medium',
-        format='bullets'
+        format='bullets',
     )
 
     temp = result.summary.split("- ")
@@ -17,5 +17,3 @@ def summarize(prompt: str) -> str:
     for i in range(1, len(temp)):
         formatted += ("- " + temp[i] + "\n")
     return formatted
-
-
