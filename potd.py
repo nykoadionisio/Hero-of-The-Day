@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from summarize import summarize
 
 app = Flask(__name__)
@@ -17,7 +17,8 @@ Outside boxing, Ali attained success as a spoken word artist, releasing two stud
 
 @app.route('/')
 def index():
-    return summarize(muhammad_ali_prompt)
+    output = summarize(muhammad_ali_prompt)
+    return render_template("index.html", id=output)
 
 if "__name__" == "__main__":
     app.run(debug=True)

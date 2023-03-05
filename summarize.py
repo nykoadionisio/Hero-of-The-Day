@@ -5,7 +5,6 @@ api_key = "XjReiHQdMxMRNVMDybIcUpfMgFyevfkdYYmjVg1j"
 co = cohere.Client(api_key)
 
 
-
 def summarize(prompt: str) -> str:
     result = co.summarize(
         text=prompt,
