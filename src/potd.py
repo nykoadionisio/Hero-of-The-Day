@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from summarize import summarize
+from wikiscraper import scrape
 
 app = Flask(__name__)
 
@@ -11,14 +12,22 @@ Born and raised in Louisville, Kentucky, he began training as an amateur boxer a
 
 He fought in several historic boxing matches, including his highly publicized fights with Sonny Liston, Joe Frazier (including the Fight of the Century, the biggest boxing event up until then),[14] the Thrilla in Manila, and his fight with George Foreman in The Rumble in the Jungle.[15][16] Ali thrived in the spotlight at a time when many boxers let their managers do the talking, and he became renowned for his provocative and outlandish persona.[17][18][19] He was famous for trash-talking, often free-styled with rhyme schemes and spoken word poetry incorporating elements of hip hop.[20][21][22] He often predicted in which round he would knock out his opponent.
 
-Outside boxing, Ali attained success as a spoken word artist, releasing two studio albums: I Am the Greatest! (1963) and The Adventures of Ali and His Gang vs. Mr. Tooth Decay (1976). Both albums received Grammy Award nominations.[22] He also featured as an actor and writer, releasing two autobiographies. Ali retired from boxing in 1981 and focused on religion, philanthropy and activism. In 1984, he made public his diagnosis of Parkinson's syndrome, which some reports attributed to boxing-related injuries,[23] though he and his specialist physicians disputed this.[24] He remained an active public figure globally, but in his later years made fewer public appearances as his condition worsened, and he was cared for by his family. 
+Outside boxing, Ali attained success as a spoken word artist, releasing two studio albums: I Am the Greatest! (1963) and The Adventures of Ali and His Gang vs. Mr. Tooth Decay (1976). Both albums received Grammy Award nominations.[22] He also featured as an actor and writer, releasing two autobiographies. Ali retired from boxing in 1981 and focused on religion, philanthropy and activism. In 1984, he made public his diagnosis of Parkinson's syndrome, which some reports attributed to boxing-related injuries,[23] though he and his specialist physicians disputed this.[24] He remained an active public figure globally, but in his later years made fewer public appearances as his condition worsened, and he was cared for by his family.
 """
 
 
 @app.route('/')
 def index():
+    # person = scrape()
+    # person_prompt = person[0]
+    # person_img = person[1]
+    # output = summarize(person_prompt)
     output = summarize(muhammad_ali_prompt)
-    return render_template("index.html", id=output)
+    person_img = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Muhammad_Ali_NYWTS.jpg/440px-Muhammad_Ali_NYWTS.jpg"
+
+    return render_template("index.html", id=output,
+                           img_ad=person_img)
+
 
 if "__name__" == "__main__":
     app.run(debug=True)

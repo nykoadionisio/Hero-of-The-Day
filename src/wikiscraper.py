@@ -5,7 +5,7 @@ import random
 URL = "https://en.wikipedia.org/wiki/100_Greatest_African_Americans"
 
 
-def main() -> list:
+def scrape() -> list:
     driver = webdriver.Chrome()
     driver.get(URL)
     page = driver.page_source
@@ -37,6 +37,9 @@ def main() -> list:
     text = ''
     for p in paragraphs:
         text = text + p.text.strip()
+        text = text.replace("negro", "")
+
+    text = text[:2048]
 
     # just to initialize img_address
     img_address = (person_soup.find_all('img')[4]).get('alt')
@@ -63,9 +66,9 @@ def main() -> list:
                   'https://en.wikipedia.org' + people[random_name]]
 
     # person_arr: [text, img address, link to wiki page]
-    # print(person_arr)
+    print(person_arr)
     return person_arr
 
 
 if __name__ == '__main__':
-    main()
+    scrape()
