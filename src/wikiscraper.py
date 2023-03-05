@@ -5,7 +5,7 @@ import random
 URL = "https://en.wikipedia.org/wiki/100_Greatest_African_Americans"
 
 
-def main() -> None:
+def main() -> list:
     driver = webdriver.Chrome()
     driver.get(URL)
     page = driver.page_source
@@ -31,13 +31,33 @@ def main() -> None:
     person_soup = BeautifulSoup(person_page, "html.parser")
     paragraphs = person_soup.find_all('p')
 
+    # print(person_soup)
+    # print('\n')
+
     text = ''
     for p in paragraphs:
         text = text + p.text.strip()
 
+    img_address = (person_soup.find_all('img')[4]).get('alt')
+    images = (person_soup.find_all('img'))[:5]
+    for i in images:
+        if random_name in i.get('alt'):
+            img_address = i.get('alt')
+            break
+
+    img_address = img_address.replace(" ", "_")
+
+    # print(img_address)
+    # print('https://en.wikipedia.org/wiki/File:' + img_address)
+
     driver.close()
 
-    return text
+    person_arr = [text, 'https://en.wikipedia.org/wiki/File:' + img_address,
+                  'https://en.wikipedia.org' + people[random_name]]
+
+    # print(person_arr)
+    # person_arr: [text, img address, link to wiki page]
+    return person_arr
 
 
 if __name__ == '__main__':
